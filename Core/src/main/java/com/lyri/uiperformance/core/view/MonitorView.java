@@ -194,7 +194,6 @@ public class MonitorView extends Thread implements IMonitorView, IMonitorRecord 
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        mMonitorView.setVisibility(View.GONE);
                         if (remove) {
                             mWindowManager.removeView(mMonitorView);
                         }
@@ -212,10 +211,39 @@ public class MonitorView extends Thread implements IMonitorView, IMonitorRecord 
 
     }
 
+    public void resumeFromHide() {
+        mMonitorView.animate()
+                .alpha(1f)
+                .setDuration(100)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        isShow = true;
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                    }
+                });
+
+    }
+
     private GestureDetector.SimpleOnGestureListener simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-            hide(false);
+            if (isShow) {
+                hide(false);
+            } else {
+                resumeFromHide();
+            }
             return super.onDoubleTap(e);
         }
     };
