@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lyri.uiperformance.R;
+import com.lyri.uiperformance.core.Utils;
 
 import java.util.HashMap;
 
@@ -55,9 +56,8 @@ public class MonitorView extends Thread implements IMonitorView, IMonitorRecord 
                 if (tv == null) {
                     tv = new TextView(mMonitorView.getContext());
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-                    lp.setMargins(8, 8, 8, 8);
                     tv.setLayoutParams(lp);
-                    tv.setTextSize(15);
+                    tv.setTextSize(10);
                     mMonitorView.addView(tv);
                     mMapView.put(tvName, tv);
                 }
@@ -146,6 +146,8 @@ public class MonitorView extends Thread implements IMonitorView, IMonitorRecord 
         mMonitorView = new LinearLayout(context);
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         mMonitorView.setLayoutParams(lp);
+        int padding = Math.round(Utils.dpToPixel(context, 2));
+        mMonitorView.setPadding(padding, padding, padding, padding);
         mMonitorView.setBackgroundResource(R.drawable.monitor_bg);
         mMonitorView.setOrientation(LinearLayout.VERTICAL);
     }

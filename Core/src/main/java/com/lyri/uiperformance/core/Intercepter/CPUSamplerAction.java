@@ -22,7 +22,7 @@ public class CPUSamplerAction extends BaseSamplerAction {
 
     private static final int RATE_LIMIT = 50;//CPU占比阈值
     private static final String TAG = "CPUSampler";
-    private static final String CPU_RATE = "cpu_rate";
+    private static final String CPU_RATE = "CPU";
 
     public CPUSamplerAction(IMonitorRecord addMonitorRecord) {
         super(addMonitorRecord);
