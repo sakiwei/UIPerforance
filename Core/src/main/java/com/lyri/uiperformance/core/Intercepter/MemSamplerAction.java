@@ -35,8 +35,8 @@ public class MemSamplerAction extends BaseSamplerAction {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                mMonitorRecord.addOneRecord(USED_MEM, getUseSize() + "KB", true);
-                mMonitorRecord.addOneRecord(MAX_MEM, getTotalMemory() + "M", true);
+                mMonitorRecord.addOneRecord(USED_MEM, String.format("%.2fMB", getUseSize()), true);
+                mMonitorRecord.addOneRecord(MAX_MEM, String.format("%dMB", getTotalMemory()), true);
             }
         });
     }
@@ -55,9 +55,9 @@ public class MemSamplerAction extends BaseSamplerAction {
      *
      * @return
      */
-    private long getUseSize() {
+    private float getUseSize() {
         Runtime runtime = Runtime.getRuntime();
-        return (runtime.totalMemory() - runtime.freeMemory()) >> 10;
+        return ((runtime.totalMemory() - runtime.freeMemory()) >> 10) / 1024.f;
     }
 
     /**
