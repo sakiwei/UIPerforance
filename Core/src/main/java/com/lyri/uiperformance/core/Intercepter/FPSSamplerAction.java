@@ -2,7 +2,6 @@ package com.lyri.uiperformance.core.Intercepter;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.Choreographer;
 
 import com.lyri.uiperformance.core.view.IMonitorRecord;
@@ -61,7 +60,7 @@ public class FPSSamplerAction extends BaseSamplerAction implements Choreographer
                 mLastFrameStartTime = currentTimeMillis;
                 mFrameRendered = 0;
             }
-            
+
         } else {
             mLastFrameStartTime = currentTimeMillis;
         }
