@@ -39,4 +39,8 @@ public class UIPerformance {
     public void stop() {
         mCore.stop();
     }
+
+    public void pause() {
+        mCore.pause();
+    }
 }

@@ -24,6 +24,7 @@ public class PerformanceCore implements Application.ActivityLifecycleCallbacks {
     private Context mContext;
     private boolean mIsForeground;//APP是否位于前台
     private boolean mStart;//是否已开启
+    private boolean mStop;//是否已开启
 
     public PerformanceCore(Context context) {
         this.mContext = context;
@@ -31,6 +32,7 @@ public class PerformanceCore implements Application.ActivityLifecycleCallbacks {
 
     public void start() {
         mStart = true;
+        mStop = false;
         mIsForeground = true;
 
 
@@ -52,6 +54,14 @@ public class PerformanceCore implements Application.ActivityLifecycleCallbacks {
 
     public void stop() {
         mStart = false;
+        mStop = true;
+        mSamplerThread.stopSampling();
+        mMonitorViewWrapper.close();
+    }
+
+    public void pause() {
+        mStart = false;
+        mStop = false;
         mSamplerThread.stopSampling();
         mMonitorViewWrapper.close();
     }
@@ -68,7 +78,7 @@ public class PerformanceCore implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityResumed(Activity activity) {
-        if (mStart) {
+        if (mStart || mStop) {
             return;
         }
 
@@ -91,7 +101,9 @@ public class PerformanceCore implements Application.ActivityLifecycleCallbacks {
 
         if (!isForegroundApp()) {
             mIsForeground = false;
-            stop();
+            if (!mStop) {
+                pause();
+            }
         }
     }
 
