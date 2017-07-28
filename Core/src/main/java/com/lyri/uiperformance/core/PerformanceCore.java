@@ -57,6 +57,9 @@ public class PerformanceCore implements Application.ActivityLifecycleCallbacks {
         mStop = true;
         mSamplerThread.stopSampling();
         mMonitorViewWrapper.close();
+        if (mContext instanceof Application) {
+            ((Application) mContext).unregisterActivityLifecycleCallbacks(this);
+        }
     }
 
     public void pause() {
